@@ -17,17 +17,10 @@ def send_command(command):
         return False
     print("SENDING DATA TO PORT: {}".format(port))
     arduino = serial.Serial(port=port, baudrate=baudrate, timeout=.1)
-    is_received = False
-    while(not is_received):
-        arduino.write(bytes(command).encode("utf-8"))
-        time.sleep(0.1)
-        is_ok = arduino.readline().strip()
-        time.sleep(0.1)
-        if(is_ok == "4444"):
-            is_received = True
+    arduino.write(bytes(command).encode("utf-8"))
     arduino.close()
     return True
 
 while True:
-    x = input("command to give: ")
-    send_command(int(x))
+    x = input("Command is ")
+    send_command(x)
