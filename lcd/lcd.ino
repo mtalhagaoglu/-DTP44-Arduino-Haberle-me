@@ -7,10 +7,10 @@
 RF24 radio(9, 10); // CE, CSN
 const byte address[6] = "10110";
 
-LiquidCrystal lcd_left_1(7, 6, A2, A3, A4, A5);
+LiquidCrystal lcd_left_1(7, 3, A2, A3, A4, A5);
 LiquidCrystal lcd_right_1(7, 5, A2, A3, A4, A5);
-LiquidCrystal lcd_left_2(7, 4, A2, A3, A4, A5);
-LiquidCrystal lcd_right_2(7, 3, A2, A3, A4, A5);
+LiquidCrystal lcd_left_2(7, 6, A2, A3, A4, A5);
+LiquidCrystal lcd_right_2(7, 4, A2, A3, A4, A5);
 
 char status_normal[] = "Iyi Yolculuklar";
 char status_crash[] = "Ileride Kaza Var"; // Kazaya Uzak Ekran
@@ -59,7 +59,7 @@ void setup() {
 
 
 void loop() {
-
+ 
   if (Serial.available()) {
     command_received = Serial.readString().toInt();
     if (command_received < 100) {
@@ -130,4 +130,5 @@ void loop() {
     }
     delay(200);
   };
+  
 }

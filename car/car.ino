@@ -28,25 +28,27 @@ void setup()
 int command = 0;
 int command_received = 0;
 
-int line = 0; // İkinci şerit ise 1 yap
+int line = 1; // İkinci şerit ise 1 yap
 
 void loop()
 {
 
-  if (Serial.available()) {// Arabadan bilgisayara direkt olarak saniye bilgisi vermek için.
-    command = Serial.readString().toInt();
-  }
+
 
   if (radio.available()) { // NRF ile gelen komut var mı onu kontrol ediyoruz.
     radio.read(&command_received, sizeof(command_received));
     if (command_received > 0 + (line * 50) && command_received <= 50 + (line * 50)) { // İlk 50 Sağ şeritte giden araba için
-      command = command_received;
+      command = (command_received % 50) / 7;
     } else {
       command = 0;
-    }
+    }+
     Serial.println(command_received);
   } else {
     command = 0;
+  }
+
+  if (Serial.available()) {// Arabadan bilgisayara direkt olarak saniye bilgisi vermek için.
+    command = Serial.readString().toInt();
   }
 
   Serial.println(command);
