@@ -2,6 +2,7 @@
 #include <RF24.h>
 #include <printf.h>
 
+
 const int in1 = 4;     // Motor sürücümüze bağladığımız pinleri tanımlıyoruz
 const int in2 = 5;
 const int in3 =  6;

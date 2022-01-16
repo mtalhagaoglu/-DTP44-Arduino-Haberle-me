@@ -9,7 +9,7 @@ def find_port():
     if(not len(ports)):
         print("CONNECT AN ARDUINO!")
         return False
-    return ports[0].device
+    return ports[2].device
 
 def send_command(command):
     port = find_port()
@@ -18,6 +18,12 @@ def send_command(command):
     print("SENDING DATA TO PORT: {}".format(port))
     arduino = serial.Serial(port=port, baudrate=baudrate, timeout=.1)
     arduino.write(bytes(command).encode("utf-8"))
+    while True:
+        if (arduino.readline().strip() == "4444"):
+            break
+        else:
+            arduino.write(bytes(command).encode("utf-8"))
+        time.sleep(0.1)
     arduino.close()
     return True
 
