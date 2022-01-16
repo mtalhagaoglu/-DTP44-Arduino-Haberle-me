@@ -2,11 +2,12 @@
 #include <RF24.h>
 #include <printf.h>
 
-
+ 
 const int in1 = 4;     // Motor sürücümüze bağladığımız pinleri tanımlıyoruz
 const int in2 = 5;
 const int in3 =  6;
 const int in4 =  7;
+const int buzzer = A0;
 
 RF24 radio(9, 10); // CE, CSN
 const byte address[6] = "10110";
@@ -23,6 +24,7 @@ void setup()
   pinMode(in2, OUTPUT);
   pinMode(in3, OUTPUT);
   pinMode(in4, OUTPUT);
+  pinMode(buzzer,OUTPUT);
   printf_begin();
   radio.printDetails();
 }
@@ -51,11 +53,11 @@ void loop()
   if (Serial.available()) {// Arabadan bilgisayara direkt olarak saniye bilgisi vermek için.
     command = Serial.readString().toInt();
   }
-
   Serial.println(command);
   Serial.println(radio.available());
   Serial.println("----");
   if (command) {
+    digitalWrite(buzzer,HIGH);
     digitalWrite(in1, LOW); // İleri
     digitalWrite(in2,  HIGH);
     digitalWrite(in3, LOW);
@@ -76,6 +78,7 @@ void loop()
     digitalWrite(in3, LOW);
     digitalWrite(in4,  LOW);
     delay(command * 1000);
+    digitalWrite(buzzer,LOW);
   } else { //Komut 0 ise arabaya durmalı
     digitalWrite(in1, LOW);
     digitalWrite(in2,  LOW);
