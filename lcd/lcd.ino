@@ -66,8 +66,8 @@ void loop() {
       alarm_section = command_received;
       Serial.println("Komut: " + command_received);
       bool is_received = radio.write(&command_received, sizeof(command_received));
+      Serial.println("4444");
       if (is_received) {
-        Serial.println("4444");
         Serial.println("Komut Gönderildi");
       } else {
         Serial.println("Komut Gönderilemedi");
